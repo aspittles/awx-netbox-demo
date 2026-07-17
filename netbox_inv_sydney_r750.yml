@@ -3,7 +3,7 @@ plugin: netbox.netbox.nb_inventory
 validate_certs: true
 query_filters:
   - site: acme-apj-sydney
-  - device_type_id: dell-poweredge-r750
+  - device_type: dell-poweredge-r750
 group_by:
   - device_roles
   - sites
