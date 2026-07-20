@@ -7,15 +7,22 @@
       ansible.builtin.file:
         path: /etc/motd
         state: touch
-        modification_time: preserve
-        access_time: preserve
 
-    - name: Append timestamped EDA trigger banner
+    - name: Ensure banner header is present
+      ansible.builtin.blockinfile:
+        path: /etc/motd
+        marker: "# {mark} EDA DEMO HEADER"
+        block: |
+          =====================================================
+          Event-Driven Automation Demo - NetBoxWebinar01
+          =====================================================
+        insertbefore: BOF
+
+    - name: Append timestamped EDA trigger line
       ansible.builtin.lineinfile:
         path: /etc/motd
-        line: "[{{ ansible_date_time.iso8601 }}] Event-Driven Automation triggered this update!"
+        line: "  [{{ ansible_date_time.iso8601 }}] Triggered by NetBox event"
         insertafter: EOF
-        create: true
 
     - name: Also drop a visible marker file for live tail demo
       ansible.builtin.copy:
