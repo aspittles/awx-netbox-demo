@@ -1,0 +1,18 @@
+---
+- name: EDA Demo - Welcome New Host Banner
+  hosts: all
+  become: true
+  tasks:
+    - name: Write timestamped welcome banner
+      ansible.builtin.copy:
+        dest: /etc/motd
+        content: |
+          =====================================================
+          Event-Driven Automation triggered this update!
+          Triggered at: {{ ansible_date_time.iso8601 }}
+          =====================================================
+      
+    - name: Also drop a visible marker file for live tail demo
+      ansible.builtin.copy:
+        dest: "/tmp/eda-demo-triggered-{{ ansible_date_time.epoch }}.txt"
+        content: "EDA fired at {{ ansible_date_time.iso8601 }}\n"
