@@ -1,0 +1,7 @@
+---
+plugin: netbox.netbox.nb_inventory
+validate_certs: true
+query_filters:
+  - tag: eda-demo
+compose:
+  ansible_host: primary_ip4.address
