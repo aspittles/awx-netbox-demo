@@ -3,15 +3,20 @@
   hosts: all
   become: true
   tasks:
-    - name: Write timestamped welcome banner
-      ansible.builtin.copy:
-        dest: /etc/motd
-        content: |
-          =====================================================
-          Event-Driven Automation triggered this update!
-          Triggered at: {{ ansible_date_time.iso8601 }}
-          =====================================================
-      
+    - name: Ensure motd file exists
+      ansible.builtin.file:
+        path: /etc/motd
+        state: touch
+        modification_time: preserve
+        access_time: preserve
+
+    - name: Append timestamped EDA trigger banner
+      ansible.builtin.lineinfile:
+        path: /etc/motd
+        line: "[{{ ansible_date_time.iso8601 }}] Event-Driven Automation triggered this update!"
+        insertafter: EOF
+        create: true
+
     - name: Also drop a visible marker file for live tail demo
       ansible.builtin.copy:
         dest: "/tmp/eda-demo-triggered-{{ ansible_date_time.epoch }}.txt"
