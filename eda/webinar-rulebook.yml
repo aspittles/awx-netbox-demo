@@ -1,0 +1,22 @@
+---
+- name: NetBox Event-Driven Automation Demo
+  hosts: all
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5050
+
+  rules:
+    - name: Demo 2 - Welcome banner on tag
+      condition: event.payload.data.tags is selectattr("slug", "==", "eda-notify-demo")
+      action:
+        run_job_template:
+          name: "EDA Demo - Welcome Banner"
+          organization: "Default"
+
+    - name: Demo 3 - Config deploy on tag
+      condition: event.payload.data.tags is selectattr("slug", "==", "config-deploy-demo")
+      action:
+        run_job_template:
+          name: "NetBox Config Deploy"
+          organization: "Default"
