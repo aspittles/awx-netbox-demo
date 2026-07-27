@@ -5,3 +5,4 @@ query_filters:
   - tag: eda-demo
 compose:
   ansible_host: primary_ip4.address.split('/')[0]
+  netbox_vm_id: id
