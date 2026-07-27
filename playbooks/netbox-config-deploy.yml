@@ -11,7 +11,7 @@
         url: "{{ netbox_api }}/api/virtualization/virtual-machines/{{ vm_id }}/render-config/"
         method: POST
         headers:
-          Authorization: "Token {{ lookup('env', 'NETBOX_WRITE_TOKEN') }}"
+          Authorization: "Token {{ lookup('env', 'NETBOX_TOKEN') }}"
         body_format: json
         body: {}
         return_content: true
