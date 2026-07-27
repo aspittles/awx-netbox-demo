@@ -1,0 +1,32 @@
+---
+- name: NetBox Config Deploy Demo - Chrony NTP
+  hosts: all
+  become: true
+  vars:
+    netbox_api: "https://bybn5017.cloud.netboxapp.com"
+    vm_id: "{{ netbox_vm_id }}"
+  tasks:
+    - name: Render config via NetBox API
+      ansible.builtin.uri:
+        url: "{{ netbox_api }}/api/virtualization/virtual-machines/{{ vm_id }}/render-config/"
+        method: POST
+        headers:
+          Authorization: "Token {{ lookup('env', 'NETBOX_WRITE_TOKEN') }}"
+        body_format: json
+        body: {}
+        return_content: true
+      register: rendered
+
+    - name: Show rendered config (for demo visibility in job output)
+      ansible.builtin.debug:
+        msg: "{{ rendered.json.content }}"
+
+    - name: Deploy rendered config to chrony conf.d
+      ansible.builtin.copy:
+        dest: /etc/chrony/conf.d/netbox-demo.conf
+        content: "{{ rendered.json.content }}"
+
+    - name: Reload chrony
+      ansible.builtin.systemd:
+        name: chrony
+        state: restarted
