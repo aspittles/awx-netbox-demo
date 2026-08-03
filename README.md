@@ -54,7 +54,6 @@ Ansible (EDA) as the trigger mechanism.
   - `NetBoxWebinar01 SSH` — Machine credential (SSH + sudo) for the two Job Templates that connect to `NetBoxWebinar01` directly.
 - **Inventories:**
   - `NetBox – Acme Sydney R750s` → sourced from `netbox_inv_sydney_r750.yml`
-  - `NetBox Devices` → sourced from `netbox_inv.yml` (kept as reference/fallback, not used live)
   - `EDA Target (NetBox)` → sourced from `netbox_inv_eda_target.yml`
 - **Job Templates:**
   - `EDA Demo - Welcome Banner` — Demo 2, uses `EDA Target (NetBox)` + `playbooks/eda-welcome-banner.yml` + `NetBoxWebinar01 SSH`
@@ -68,6 +67,4 @@ Ansible (EDA) as the trigger mechanism.
 - **Webhook:** `EDA Rulebook Trigger` → POSTs to `http://<public-facing-address>:5050/endpoint` (NAT-forwarded to `NetBoxWebinar01`)
 - **Event Rule:** `EDA Demo Trigger Rule` → fires on Virtual Machine Updates, calls the webhook above
 
-## Reset Between Rehearsals
-
-A local script (`~/Webinar/reset-demo.sh` on `NetBoxWebinar01`, not checked into this repo) clears `/etc/motd`, removes the `/tmp` marker files, and removes/restarts the chrony demo config — restoring both Demo 2 and Demo 3 to a clean pre-demo state. Remember to also remove the `eda-notify-demo` / `config-deploy-demo` tags in NetBox, and clear the hosts from `EDA Target (NetBox)` / `NetBox – Acme Sydney R750s` in AWX if you want the "empty inventory populates live" opening beat for Demo 1.
+3 to a clean pre-demo state. Remember to also remove the `eda-notify-demo` / `config-deploy-demo` tags in NetBox, and clear the hosts from `EDA Target (NetBox)` / `NetBox – Acme Sydney R750s` in AWX if you want the "empty inventory populates live" opening beat for Demo 1.
