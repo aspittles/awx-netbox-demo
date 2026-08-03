@@ -22,7 +22,6 @@ Ansible (EDA) as the trigger mechanism.
 | File | Used by | Purpose |
 |---|---|---|
 | `netbox_inv_sydney_r750.yml` | Demo 1 | `netbox.netbox.nb_inventory` plugin config, filtered to `site: acme-apj-sydney` + `device_type: dell-poweredge-r750` |
-| `netbox_inv.yml` | (reference only) | Original unfiltered NetBox inventory — full device list, grouped by role/site. Not part of the live webinar flow, kept as a working reference/fallback. |
 | `netbox_inv_eda_target.yml` | Demo 2 & 3 | Dynamic inventory filtered to the `eda-demo` tag — resolves to `NetBoxWebinar01` itself. Exposes `ansible_host` (IP, CIDR stripped) and `netbox_vm_id` (NetBox's internal VM ID) as host vars. |
 
 ### `collections/`
