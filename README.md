@@ -1,6 +1,6 @@
-# AWX + NetBox Automation Webinar Demo
+# NetBox + AWX Automation Webinar Demo
 
-This repo powers a three-part demo showing NetBox as a source of truth for
+This repo powers a three-part demo showing NetBox as a system of record for
 infrastructure automation, with AWX as the execution engine and Event-Driven
 Ansible (EDA) as the trigger mechanism.
 
